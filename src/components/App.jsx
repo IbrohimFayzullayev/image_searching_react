@@ -4,32 +4,28 @@ import SearchBar from "./SearchBar.jsx";
 import ImageList from "./ImageList.jsx";
 
 class App extends React.Component {
-  state = { key: "" };
+  state = { imageArr: [] };
 
-  searchGetVal = (data) => {
-    console.log(data);
-    this.setState({ key: data });
-  };
-
-  getData = async () => {
-    const data = await axios.get("https://api.unsplash.com/search/photos", {
+  searchGetVal = async (data) => {
+    const dat = await axios.get("https://api.unsplash.com/search/photos", {
       params: {
-        query: this.state.key,
+        query: data,
+        page: 3,
+        per_page: 20,
       },
       headers: {
         Authorization: "Client-ID qBBsi-sJ8iXDTxhSirJ0WIvzoPRrR1N_bGenHWOuFVE",
       },
     });
-    console.log(data.data.results);
+    this.setState({ imageArr: dat.data.results });
+    console.log(dat.data);
   };
 
-  componentDidUpdate() {
-    this.getData();
-  }
   render() {
     return (
       <div>
         <SearchBar malumotOl={this.searchGetVal} />
+        <ImageList dataImg={this.state.imageArr} />
       </div>
     );
   }
