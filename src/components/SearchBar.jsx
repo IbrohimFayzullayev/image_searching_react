@@ -14,7 +14,7 @@ class SearchBar extends React.Component {
     // console.log(event.target.value);
     this.setState({ keyWord: event.target.value });
   };
-  onFormSubmit = (e) => {
+  onFormSubmit = async (e) => {
     e.preventDefault();
     // console.log(this.state.keyWord);
     this.props.malumotOl(this.state.keyWord);
